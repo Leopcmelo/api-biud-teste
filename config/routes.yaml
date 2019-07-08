@@ -1,0 +1,15 @@
+api:
+  path: /api
+  controller: App\Controller\AuthController::api
+
+user:
+  type: rest
+  resource: App\Controller\UserController
+
+login_check:
+  path:     /login_check
+
+opportunity:
+  type: rest
+  resource: App\Controller\OpportunityController
+#  methods:  [POST]

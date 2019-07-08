@@ -1,0 +1,51 @@
+//Executa o postgres e cria um diretorio
+initdb -D /usr/local/var/postgres/
+
+//starts pgsql server
+pg_ctl -D /usr/local/var/postgres/ -l logfile start
+
+//cria banco de dados
+php bin/console doctrine:database:create
+
+//starts php server
+php bin/console server:run
+
+
+######### JWT AUTH #########
+
+--------------------------------------> begin register user JTW Auth <--------------------------------------
+curl -X POST http://localhost:8000/register -d email=<dsdsd> -d password=<dsdsdsd>
+
+OU
+
+POST Request
+Headers: Content-Type -> application/json
+Body: {
+         "email": "seu_email",
+         "password": "sua_senha"
+      }
+
+
+--------------------------------------> begin get token for user auth JTW Auth <--------------------------------------
+
+curl -X POST -H "Content-Type: application/json" http://localhost:8000/login_check -d '{"username":"<seuemail>","password":"<suasenha>"}'
+
+POST Request
+Headers: Content-Type -> application/json
+Body: {
+         "username": "seu_email",
+         "password": "sua_senha"
+      }
+
+===> Retorna o token de autenticação
+
+
+
+--------------------------------------> begin authenticate user JTW Auth <--------------------------------------
+
+curl -H "Authorization: Bearer <TOKEN>" http://localhost:8000/api
+
+POST Request
+Headers: Authorization -> Bearer <TOKEN>
+
+===> Retorna "Logged in as <seuemail>"
